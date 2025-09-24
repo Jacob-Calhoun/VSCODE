@@ -1,4 +1,5 @@
 #include "main.h"
+#include "myCode.hpp"
 
 /////
 // For installation, upgrading, documentations, and tutorials, check out our website!
@@ -256,6 +257,8 @@ void opcontrol() {
     // . . .
     // Put more user control code here!
     // . . .
+    TEST();
+    driverControl();
 
     pros::delay(ez::util::DELAY_TIME);  // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
   }
