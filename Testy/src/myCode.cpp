@@ -1,7 +1,7 @@
 #include "myCode.hpp"
 
 //If testing small functions, they go here
-void TEST() {
+void TestCode() {
     TopOut.move(127);
 }
 

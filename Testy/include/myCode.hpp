@@ -1,5 +1,5 @@
 #include "globals.hpp"
 #include "helpers.hpp"
 
-void TEST();
+void TestCode();
 void driverControl();
