@@ -4,9 +4,9 @@
 
 //If testing small functions, they go here
 void TestCode() {
-    TopOut.move(127);
+    //   N/A
 }
 
 void driverControl() {
-    //N/A
+    intakeControls();
 }
