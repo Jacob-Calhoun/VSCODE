@@ -15,6 +15,22 @@ void intakeControls() {
         TopBack.move((80 * 127) / 100);
         LeftMandible.move((75 * 127) / 100);
         RightMandible.move((-75 * 127) / 100);
+        //True means Red = bad, False means Blue = bad.
+        if (true) {
+            //Red = bad
+            if (340 <= BlockColorSensor.get_hue() && BlockColorSensor.get_hue() <= 350) {
+                TopBack.move((-100 * 127) / 100);
+                pros::delay(500);
+                TopBack.move((80 * 127) / 100);
+            }
+        } else {
+            //Blue = bad
+            if (210 <= BlockColorSensor.get_hue() && BlockColorSensor.get_hue() <= 220) {
+                TopBack.move((-100 * 127) / 100);
+                pros::delay(500);
+                TopBack.move((80 * 127) / 100);
+            }
+        }
     }
 
     //Bottom block export

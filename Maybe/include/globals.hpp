@@ -1,4 +1,5 @@
 #include "main.h"
+#include "pros/vision.h"
 
 //Motors
     //Intake/Outake motors
@@ -15,3 +16,7 @@
         extern pros::Motor RightBack;
         extern pros::MotorGroup DrivetrainLeft;
         extern pros::MotorGroup DrivetrainRight;
+
+//Sensors
+    //Color sensors
+        extern pros::Optical BlockColorSensor;
