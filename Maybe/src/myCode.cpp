@@ -7,6 +7,11 @@ void TestCode() {
     //   N/A
 }
 
+//Initialization stuff
+void codeInitialize() {
+    BlockColorSensor.set_led_pwm(50);
+}
+
 void driverControl() {
     intakeControls();
 }

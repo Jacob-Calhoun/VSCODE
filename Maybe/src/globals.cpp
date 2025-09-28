@@ -15,3 +15,7 @@
         pros::Motor RightBack(20, pros::v5::MotorGears::green);
         pros::MotorGroup DrivetrainLeft({11,12});
         pros::MotorGroup DrivetrainRight({19,20});
+
+//Sensors
+    //Color sensors
+        pros::Optical BlockColorSensor(7);

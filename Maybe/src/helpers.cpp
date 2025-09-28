@@ -2,6 +2,20 @@
 
 int intakeMotorSetting = 0;
 
+//Takes a velocity percentage and outputs in the voltage format
+double motorVelocity(double givenVelocity) {
+    if (abs((givenVelocity * 127) / 100) < 127) {
+        return ((givenVelocity * 127) / 100);
+    } else {
+        if (givenVelocity > 0) {
+            return (127);
+        } else {
+            return (-127);
+        }
+    }
+}
+
+//Controls the individual intake functions and what they do
 void intakeControls() {
     //Intakes blocks
     if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
@@ -10,25 +24,25 @@ void intakeControls() {
 
     if (intakeMotorSetting == 1) {
         BottomBack.brake();
-        BottomOut.move((85 * 127) / 100);
-        TopOut.move((100 * 127) / 100);
-        TopBack.move((80 * 127) / 100);
-        LeftMandible.move((75 * 127) / 100);
-        RightMandible.move((-75 * 127) / 100);
+        BottomOut.move(motorVelocity(60));
+        TopOut.move(motorVelocity(100));
+        TopBack.move(motorVelocity(60));
+        LeftMandible.move(motorVelocity(75));
+        RightMandible.move(motorVelocity(-75));
         //True means Red = bad, False means Blue = bad.
         if (true) {
             //Red = bad
-            if (340 <= BlockColorSensor.get_hue() && BlockColorSensor.get_hue() <= 350) {
-                TopBack.move((-100 * 127) / 100);
+            if (340 <= BlockColorSensor.get_hue() && BlockColorSensor.get_hue() <= 360) {
+                TopBack.move(motorVelocity(-60));
                 pros::delay(500);
-                TopBack.move((80 * 127) / 100);
+                TopBack.move(motorVelocity(60));
             }
         } else {
             //Blue = bad
             if (210 <= BlockColorSensor.get_hue() && BlockColorSensor.get_hue() <= 220) {
-                TopBack.move((-100 * 127) / 100);
+                TopBack.move(motorVelocity(-60));
                 pros::delay(500);
-                TopBack.move((80 * 127) / 100);
+                TopBack.move(motorVelocity(60));
             }
         }
     }
@@ -41,10 +55,10 @@ void intakeControls() {
     if (intakeMotorSetting == 2) {
         TopOut.brake();
         TopBack.brake();
-        BottomOut.move((-75 * 127) / 100);
-        BottomBack.move((-75 * 127) / 100);
-        LeftMandible.move((-75 * 127) / 100);
-        RightMandible.move((75 * 127) / 100);
+        BottomOut.move(motorVelocity(-75));
+        BottomBack.move(motorVelocity(-75));
+        LeftMandible.move(motorVelocity(-75));
+        RightMandible.move(motorVelocity(75));
     }
 
     //Middle block export
@@ -56,9 +70,9 @@ void intakeControls() {
         TopOut.brake();
         LeftMandible.brake();
         RightMandible.brake();
-        BottomOut.move((85 * 127) / 100);
-        BottomBack.move((-75 * 127) / 100);
-        TopBack.move((-100 * 127) / 100);
+        BottomOut.move(motorVelocity(85));
+        BottomBack.move(motorVelocity(-75));
+        TopBack.move(motorVelocity(-100));
     }
 
     //Top block export
@@ -69,9 +83,9 @@ void intakeControls() {
     if (intakeMotorSetting == 4) {
         LeftMandible.brake();
         RightMandible.brake();
-        BottomOut.move((75 * 127) / 100);
-        TopOut.move((-100 * 127) / 100);
-        BottomBack.move((-75 * 127) / 100);
-        TopBack.move((80 * 127) / 100);
+        BottomOut.move(motorVelocity(75));
+        TopOut.move(motorVelocity(-100));
+        BottomBack.move(motorVelocity(-75));
+        TopBack.move(motorVelocity(80));
     }
 }
