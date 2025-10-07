@@ -1,4 +1,5 @@
 #include "helpers.hpp"
+#include "pros/misc.h"
 
 int intakeMotorSetting = 0;
 
@@ -18,7 +19,7 @@ double motorVelocity(double givenVelocity) {
 //Controls the individual intake functions and what they do
 void intakeControls() {
     //Intakes blocks
-    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
+    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
         intakeMotorSetting = 1;
     }
 
@@ -27,42 +28,27 @@ void intakeControls() {
         BottomOut.move(motorVelocity(60));
         TopOut.move(motorVelocity(100));
         TopBack.move(motorVelocity(60));
-        LeftMandible.move(motorVelocity(75));
-        RightMandible.move(motorVelocity(-75));
-        //True means Red = bad, False means Blue = bad.
-        if (true) {
-            //Red = bad
-            if (340 <= BlockColorSensor.get_hue() && BlockColorSensor.get_hue() <= 360) {
-                TopBack.move(motorVelocity(-60));
-                pros::delay(500);
-                TopBack.move(motorVelocity(60));
-            }
-        } else {
-            //Blue = bad
-            if (210 <= BlockColorSensor.get_hue() && BlockColorSensor.get_hue() <= 220) {
-                TopBack.move(motorVelocity(-60));
-                pros::delay(500);
-                TopBack.move(motorVelocity(60));
-            }
-        }
+        LeftMandible.move(motorVelocity(60));
+        RightMandible.move(motorVelocity(-60));
+        colorSorting(1);
     }
 
     //Bottom block export
-    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
+    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
         intakeMotorSetting = 2;
     }
 
     if (intakeMotorSetting == 2) {
         TopOut.brake();
         TopBack.brake();
-        BottomOut.move(motorVelocity(-75));
-        BottomBack.move(motorVelocity(-75));
-        LeftMandible.move(motorVelocity(-75));
-        RightMandible.move(motorVelocity(75));
+        BottomOut.move(motorVelocity(-60));
+        BottomBack.move(motorVelocity(-100));
+        LeftMandible.move(motorVelocity(-60));
+        RightMandible.move(motorVelocity(60));
     }
 
     //Middle block export
-    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
+    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
         intakeMotorSetting = 3;
     }
 
@@ -70,22 +56,70 @@ void intakeControls() {
         TopOut.brake();
         LeftMandible.brake();
         RightMandible.brake();
-        BottomOut.move(motorVelocity(85));
-        BottomBack.move(motorVelocity(-75));
-        TopBack.move(motorVelocity(-100));
+        BottomOut.move(motorVelocity(60));
+        BottomBack.move(motorVelocity(-100));
+        TopBack.move(motorVelocity(-60));
     }
 
     //Top block export
-    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
+    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
         intakeMotorSetting = 4;
     }
 
     if (intakeMotorSetting == 4) {
         LeftMandible.brake();
         RightMandible.brake();
-        BottomOut.move(motorVelocity(75));
+        BottomOut.move(motorVelocity(60));
         TopOut.move(motorVelocity(-100));
-        BottomBack.move(motorVelocity(-75));
-        TopBack.move(motorVelocity(80));
+        BottomBack.move(motorVelocity(-100));
+        TopBack.move(motorVelocity(60));
+    }
+
+    //Stops all intakes
+    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B)) {
+        intakeMotorSetting = 5;
+    }
+
+    if (intakeMotorSetting == 5) {
+        LeftMandible.brake();
+        RightMandible.brake();
+        BottomOut.brake();
+        TopOut.brake();
+        BottomBack.brake();
+        TopBack.brake();
+    }
+}
+
+//Controls the color sorting method of the intake
+void colorSorting(int goodColor) {
+    if (goodColor == 0) {
+        //Red = good
+        if (BlockColorSensor.get_hue() >= 200 && BlockColorSensor.get_hue() <= 240) {
+            pros::delay(200);
+            TopBack.move(motorVelocity(-60));
+            pros::delay(200);
+            TopBack.move(motorVelocity(60));
+        }
+    } if (goodColor == 1) {
+        //Blue = good
+        if (BlockColorSensor.get_hue() >= 340 && BlockColorSensor.get_hue() <= 360) {
+            pros::delay(200);
+            TopBack.move(motorVelocity(-60));
+            pros::delay(200);
+            TopBack.move(motorVelocity(60));
+        }
+    }
+}
+
+//Controls the mandibles and their pneumatics
+void mandibleControls() {
+    if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_LEFT)) {
+        RightMandiblePnuematic.retract();
+        LeftMandiblePnuematic.retract();
+    }
+
+    if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_RIGHT)) {
+        RightMandiblePnuematic.extend();
+        LeftMandiblePnuematic.extend();
     }
 }

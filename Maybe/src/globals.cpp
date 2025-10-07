@@ -1,4 +1,5 @@
 #include "globals.hpp"
+#include "pros/adi.hpp"
 
 //Motors
     //Intake/Outake motors
@@ -16,6 +17,11 @@
         pros::MotorGroup DrivetrainLeft({11,12});
         pros::MotorGroup DrivetrainRight({19,20});
 
+//Pneumatics
+    //"Mandibles"
+        pros::adi::Pneumatics LeftMandiblePnuematic('A', false);
+        pros::adi::Pneumatics RightMandiblePnuematic('B', false);
+
 //Sensors
     //Color sensors
-        pros::Optical BlockColorSensor(7);
+        pros::Optical BlockColorSensor(1);

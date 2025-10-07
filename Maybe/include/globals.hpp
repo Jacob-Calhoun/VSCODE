@@ -1,4 +1,5 @@
 #include "main.h"
+#include "pros/adi.hpp"
 #include "pros/vision.h"
 
 //Motors
@@ -16,6 +17,11 @@
         extern pros::Motor RightBack;
         extern pros::MotorGroup DrivetrainLeft;
         extern pros::MotorGroup DrivetrainRight;
+
+//Pneumatics
+    //"Mandibles"
+        extern pros::adi::Pneumatics LeftMandiblePnuematic;
+        extern pros::adi::Pneumatics RightMandiblePnuematic;
 
 //Sensors
     //Color sensors

@@ -2,5 +2,5 @@
 #include "helpers.hpp"
 
 void codeInitialize();
-void TestCode();
+void testCode();
 void driverControl();
