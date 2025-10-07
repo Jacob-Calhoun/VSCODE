@@ -3,5 +3,5 @@
 //Functions
 double motorVelocity(double givenVelocity);
 void intakeControls();
-void colorSorting(int goodColor);
+void colorSorting(std::string goodColor);
 void mandibleControls();

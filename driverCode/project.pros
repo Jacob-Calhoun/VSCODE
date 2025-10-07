@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "Maybe",
+    "project_name": "Driver code",
     "target": "v5",
     "templates": {
       "EZ-Template": {

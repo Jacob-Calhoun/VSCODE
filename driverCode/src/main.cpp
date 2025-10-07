@@ -31,10 +31,6 @@ ez::Drive chassis(
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-  //My stuff
-  codeInitialize();
-
-
   // Print our branding over your terminal :D
   ez::ez_template_print();
 
@@ -83,6 +79,9 @@ void initialize() {
   chassis.initialize();
   ez::as::initialize();
   master.rumble(chassis.drive_imu_calibrated() ? "." : "---");
+
+  //My code
+    codeInitialize();
 }
 
 /**
@@ -104,7 +103,7 @@ void disabled() {
  * starts.
  */
 void competition_initialize() {
-  // . . .
+  // N/A
 }
 
 /**

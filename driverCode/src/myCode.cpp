@@ -2,6 +2,8 @@
 #include "EZ-Template/util.hpp"
 #include "globals.hpp"
 #include "helpers.hpp"
+#include "pros/misc.h"
+#include "pros/rtos.h"
 
 //If testing small functions, they go here
 void testCode() {

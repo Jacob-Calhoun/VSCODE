@@ -3,6 +3,7 @@
 
 int intakeMotorSetting = 0;
 
+
 //Takes a velocity percentage and outputs in the voltage format
 double motorVelocity(double givenVelocity) {
     if (abs((givenVelocity * 127) / 100) < 127) {
@@ -30,7 +31,7 @@ void intakeControls() {
         TopBack.move(motorVelocity(60));
         LeftMandible.move(motorVelocity(60));
         RightMandible.move(motorVelocity(-60));
-        colorSorting(1);
+        colorSorting("Red");
     }
 
     //Bottom block export
@@ -91,8 +92,8 @@ void intakeControls() {
 }
 
 //Controls the color sorting method of the intake
-void colorSorting(int goodColor) {
-    if (goodColor == 0) {
+void colorSorting(std::string goodColor) {
+    if (goodColor == "Red") {
         //Red = good
         if (BlockColorSensor.get_hue() >= 200 && BlockColorSensor.get_hue() <= 240) {
             pros::delay(200);
@@ -100,7 +101,7 @@ void colorSorting(int goodColor) {
             pros::delay(200);
             TopBack.move(motorVelocity(60));
         }
-    } if (goodColor == 1) {
+    } if (goodColor == "Blue") {
         //Blue = good
         if (BlockColorSensor.get_hue() >= 340 && BlockColorSensor.get_hue() <= 360) {
             pros::delay(200);
