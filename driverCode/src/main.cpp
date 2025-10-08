@@ -1,5 +1,6 @@
 #include "main.h"
-#include "myCode.hpp"
+#include "helpers.hpp"
+#include "autons.hpp"
 
 /////
 // For installation, upgrading, documentations, and tutorials, check out our website!
@@ -59,6 +60,7 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
+      {"TEST IDEA \n\nThis is simply a testing idea.", driverAutonomousLeft},
       {"Drive\n\nDrive forward and come back", drive_example},
       {"Turn\n\nTurn 3 times.", turn_example},
       {"Drive and Turn\n\nDrive forward, turn, come back", drive_and_turn},
@@ -81,7 +83,7 @@ void initialize() {
   master.rumble(chassis.drive_imu_calibrated() ? "." : "---");
 
   //My code
-    codeInitialize();
+    BlockColorSensor.set_led_pwm(0);
 }
 
 /**
@@ -260,8 +262,10 @@ void opcontrol() {
     // . . .
     // Put more user control code here!
     // . . .
-    testCode();
-    driverControl();
+    intakeControls();
+    mandibleControls();
+
+
 
     pros::delay(ez::util::DELAY_TIME);  // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
   }

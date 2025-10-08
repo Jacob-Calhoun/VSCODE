@@ -376,3 +376,7 @@ void measure_offsets() {
 // . . .
 // Make your own autonomous functions here!
 // . . .
+
+void driverAutonomousLeft() {
+  chassis.pid_drive_set(10, DRIVE_SPEED, false);
+}
