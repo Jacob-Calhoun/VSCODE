@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "Driver code",
+    "project_name": "Driver code red",
     "target": "v5",
     "templates": {
       "EZ-Template": {
@@ -424,7 +424,8 @@
       }
     },
     "upload_options": {
-      "description": "awooga"
+      "description": "awooga",
+      "slot": 2
     },
     "use_early_access": false
   }

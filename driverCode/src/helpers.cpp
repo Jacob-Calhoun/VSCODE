@@ -89,6 +89,14 @@ void intakeControls() {
         BottomBack.brake();
         TopBack.brake();
     }
+
+    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)) {
+        intakeMotorSetting = 6;
+    }
+
+    if (intakeMotorSetting == 6) {
+        
+    }
 }
 
 //Controls the color sorting method of the intake

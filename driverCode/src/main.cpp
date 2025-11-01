@@ -33,6 +33,8 @@ ez::Drive chassis(
  */
 void initialize() {
   // Print our branding over your terminal :D
+  BlockColorSensor.set_led_pwm(0);
+
   ez::ez_template_print();
 
   pros::delay(500);  // Stop the user from doing anything while legacy ports configure
@@ -83,7 +85,7 @@ void initialize() {
   master.rumble(chassis.drive_imu_calibrated() ? "." : "---");
 
   //My code
-    BlockColorSensor.set_led_pwm(0);
+
 }
 
 /**
@@ -120,11 +122,13 @@ void competition_initialize() {
  * from where it left off.
  */
 void autonomous() {
-  chassis.pid_targets_reset();                // Resets PID targets to 0
-  chassis.drive_imu_reset();                  // Reset gyro position to 0
-  chassis.drive_sensor_reset();               // Reset drive sensors to 0
-  chassis.odom_xyt_set(0_in, 0_in, 0_deg);    // Set the current position, you can start at a specific position with this
-  chassis.drive_brake_set(MOTOR_BRAKE_HOLD);  // Set motors to hold.  This helps autonomous consistency
+  // chassis.pid_targets_reset();                // Resets PID targets to 0
+  // chassis.drive_imu_reset();                  // Reset gyro position to 0
+  // chassis.drive_sensor_reset();               // Reset drive sensors to 0
+  // chassis.odom_xyt_set(0_in, 0_in, 0_deg);    // Set the current position, you can start at a specific position with this
+  // chassis.drive_brake_set(MOTOR_BRAKE_HOLD);  // Set motors to hold.  This helps autonomous consistency
+  pros::lcd::initialize();
+  pros::lcd::print(0, "auton first");
 
   /*
   Odometry and Pure Pursuit are not magic
@@ -215,7 +219,7 @@ void ez_template_extras() {
       chassis.pid_tuner_toggle();
 
     // Trigger the selected autonomous routine
-    if (master.get_digital(DIGITAL_B) && master.get_digital(DIGITAL_DOWN)) {
+    if (master.get_digital(DIGITAL_UP) && master.get_digital(DIGITAL_DOWN)) {
       pros::motor_brake_mode_e_t preference = chassis.drive_brake_get();
       autonomous();
       chassis.drive_brake_set(preference);
