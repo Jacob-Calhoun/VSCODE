@@ -1,8 +1,9 @@
 #include "helpers.hpp"
 #include "pros/misc.h"
+#include "pros/rtos.hpp"
 
 int intakeMotorSetting = 0;
-
+int intakeMotorSettingLast = 0;
 
 //Takes a velocity percentage and outputs in the voltage format
 double motorVelocity(double givenVelocity) {
@@ -26,11 +27,11 @@ void intakeControls() {
 
     if (intakeMotorSetting == 1) {
         BottomBack.brake();
-        BottomOut.move(motorVelocity(60));
+        BottomOut.move(motorVelocity(70));
         TopOut.move(motorVelocity(100));
         TopBack.move(motorVelocity(60));
-        LeftMandible.move(motorVelocity(60));
-        RightMandible.move(motorVelocity(-60));
+        LeftMandible.move(motorVelocity(50));
+        RightMandible.move(motorVelocity(-50));
         colorSorting("Red");
     }
 
@@ -90,21 +91,30 @@ void intakeControls() {
         TopBack.brake();
     }
 
+//Reversi
     if (master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)) {
+        intakeMotorSettingLast = intakeMotorSetting;
         intakeMotorSetting = 6;
     }
 
     if (intakeMotorSetting == 6) {
-        
+        BottomBack.brake();
+        BottomOut.move(motorVelocity(-70));
+        TopOut.move(motorVelocity(-100));
+        TopBack.move(motorVelocity(-60));
+        LeftMandible.move(motorVelocity(-50));
+        RightMandible.move(motorVelocity(50));     
+        pros::delay(400);
+        intakeMotorSetting = intakeMotorSettingLast;
     }
 }
 
 //Controls the color sorting method of the intake
 void colorSorting(std::string goodColor) {
-    if (goodColor == "Red") {
+    if (goodColor == "Blue") {
         //Red = good
         if (BlockColorSensor.get_hue() >= 200 && BlockColorSensor.get_hue() <= 240) {
-            pros::delay(200);
+            pros::delay(175);
             TopBack.move(motorVelocity(-60));
             pros::delay(200);
             TopBack.move(motorVelocity(60));
@@ -112,7 +122,7 @@ void colorSorting(std::string goodColor) {
     } if (goodColor == "Blue") {
         //Blue = good
         if (BlockColorSensor.get_hue() >= 340 && BlockColorSensor.get_hue() <= 360) {
-            pros::delay(200);
+            pros::delay(175);
             TopBack.move(motorVelocity(-60));
             pros::delay(200);
             TopBack.move(motorVelocity(60));

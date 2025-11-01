@@ -3421,7 +3421,7 @@ class Drive {
   bool imu_calibrate_took_too_long = false;
   bool is_full_pid_tuner_enabled = false;
   std::vector<const_and_name>* used_pid_tuner_pids;
-  double opcontrol_speed_max = 95.0;
+  double opcontrol_speed_max = 80.0;
   bool arcade_vector_scaling = false;
   // odom privates
   std::vector<odom> pp_movements;
