@@ -32,7 +32,7 @@ void intakeControls() {
         TopBack.move(motorVelocity(60));
         LeftMandible.move(motorVelocity(50));
         RightMandible.move(motorVelocity(-50));
-        colorSorting("Red");
+        colorSorting("Blue");
     }
 
     //Bottom block export
@@ -43,10 +43,10 @@ void intakeControls() {
     if (intakeMotorSetting == 2) {
         TopOut.brake();
         TopBack.brake();
-        BottomOut.move(motorVelocity(-60));
+        BottomOut.move(motorVelocity(-50));
         BottomBack.move(motorVelocity(-100));
-        LeftMandible.move(motorVelocity(-60));
-        RightMandible.move(motorVelocity(60));
+        LeftMandible.move(motorVelocity(-50));
+        RightMandible.move(motorVelocity(50));
     }
 
     //Middle block export
@@ -58,7 +58,7 @@ void intakeControls() {
         TopOut.brake();
         LeftMandible.brake();
         RightMandible.brake();
-        BottomOut.move(motorVelocity(60));
+        BottomOut.move(motorVelocity(50));
         BottomBack.move(motorVelocity(-100));
         TopBack.move(motorVelocity(-60));
     }
@@ -111,7 +111,7 @@ void intakeControls() {
 
 //Controls the color sorting method of the intake
 void colorSorting(std::string goodColor) {
-    if (goodColor == "Blue") {
+    if (goodColor == "Red") {
         //Red = good
         if (BlockColorSensor.get_hue() >= 200 && BlockColorSensor.get_hue() <= 240) {
             pros::delay(175);
